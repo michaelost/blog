@@ -1,0 +1,135 @@
+
+<div class="scroll_bar">
+	
+	<span class="glyphicon glyphicon-chevron-down" id="down"></span>
+</div>
+
+<div class="up">
+	<span class="glyphicon glyphicon-chevron-up" id="up"></span>
+	
+</div>
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-8">
+					
+
+		<h1>Home Page</h1>
+
+
+
+		Search: <input class="search_ form-control" ng-model="searchText">
+
+		<p>{{ message }}</p>
+        <span ng-show="isloged" ng-click="is_add_new_art_clicked = !is_add_new_art_clicked"  id="scrolldown" style="border-radius:10px; padding:5px;background-color:rgba(0,0,0,0.6);"><p class="glyphicon glyphicon-pencil">add article</p></span>
+		<div ng-show="is_add_new_art_clicked">
+			<h1>Creating the new article</h1>
+			<h4>name:</h4> <input class="form-control" type="text" ng-model="new_art_name" id="new_art_name">
+			<h4>titile:</h4> <input class="form-control" type="text" ng-model="new_art_title" id="new_art_title">
+			<h4>article:</h4> <textarea class="form-control" ng-model="new_art_article" name="" id="" cols="30" rows="10"></textarea><br>
+			<button ng-click="add_article(new_art_name,new_art_title,new_art_article);" type="submit" style="font-size:17px;" class="btn btn-primary"><p class="glyphicon glyphicon-ok">post</p></button>
+		</div>
+
+		<div class="article" ng-repeat="article in articles | filter:searchText">
+
+			<h1>name: {{article.name}}</h1>
+			<h2>title: {{article.title}}</h2>
+			<p class="lead">article: {{article.body}}</p>
+			<p class="lead">posted by {{article.author}}</p>
+			<p class="lead" style="cursor:pointer;" ng-click="delete_article(article.name);"><b>{{article.delet}}</b></p>
+			<p><span class="glyphicon glyphicon-time"></span> Posted on {{article.create_at}}</p>
+			<button ng-show="isloged" type="submit" ng-click="article.comments.show = !(article.comments.show);" class="btn btn-primary"><p class="glyphicon glyphicon-pencil">comments({{article.comments.length}})</p></button>
+			&nbsp&nbsp&nbsp
+			
+			
+			
+
+			
+
+			<div ng-show="article.comments.show" class="media" ng-controller="homeController" ng-repeat="comments in article.comments"  >
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    </a>
+                    <div class="media-body"  >
+                        <h4 class="media-heading"><p> {{comments.author}}</p>
+                        <p>{{comments.comment}}</p>
+                            <small>{{comments.create_at}} 
+                            <b style="cursor:pointer;" ng-click="delete_comment(comments.comment,article.name,article);"> {{comments.delet}}</b>
+                            </small>
+                            
+                        </h4>
+                       
+                        
+                    </div>
+                </div>
+				<br>
+			 <div ng-show="article.comments.show "  ng-controller="homeController">
+                    <h4 >Leave a Comment:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea  ng-model="comment_message" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" ng-click="add_comment(article);" class="btn btn-primary">send</button>
+                       <!--
+                        <button type="submit" ng-click="delete_comment();" class="btn btn-primary">Submit</button>
+                        -->
+                    </form>
+                </div>
+
+			<br><br><br>
+		</div>
+
+
+		
+
+
+	</div>
+	
+	</div>
+
+
+	</div>
+
+<script>
+	$(document).ready(function(){
+
+
+
+
+
+
+
+
+		var distance = 100;
+		$("#down").on('click',function(){
+			distance+=600;
+  		$('html,body').animate({ scrollTop: distance + "px"},300);
+				
+		});
+
+		$("#down").on('dblclick',function(){
+  		$('html,body').animate({ scrollTop: 5000},300);
+				
+		});
+
+
+
+		$("#up").on('click',function(){
+			distance-=600;
+  		$('html,body').animate({ scrollTop: distance + "px"},300);
+				
+		});
+
+		$("#up").on('dblclick',function(){
+  		$('html,body').animate({ scrollTop: 10},300);
+				
+		});
+
+	});
+	
+	
+</script>
+

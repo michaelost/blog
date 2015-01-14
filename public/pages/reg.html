@@ -1,0 +1,279 @@
+
+<form class="form-horizontal" action='' method="POST">
+
+  <fieldset>
+
+    <div class="container">
+    <div id="legend" >
+      <legend class="">Register</legend>
+    </div>
+
+
+    <div class="control-group ">
+      <!-- Username -->
+      <label class="control-label"  for="username">login</label>
+      <div class="controls">
+        <input type="text" ng-model="login" id="username" name="username" placeholder="" class="input-xlarge">
+        <p  id="username_warning" style=" min-width:190px; max-width:704px; position:absolute; padding:3px;"></p>
+        <br><br>
+        <p class="help-block">login can contain any letters or numbers, without spaces</p>
+      </div>
+    </div>
+
+
+
+     <div class="control-group ">
+      <!-- Username -->
+      <label class="control-label"  for="username">Username</label>
+      <div class="controls">
+        <input type="text" ng-model="username2" id="username2" name="username2" placeholder="" class="input-xlarge">
+        <p  id="username_warning2" style=" min-width:190px; max-width:704px; position:absolute; padding:3px;"></p>
+        <br><br>
+        <p class="help-block">Username can contain any letters  with spaces</p>
+      </div>
+    </div>
+
+
+ 
+    <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="email">E-mail</label>
+      <div class="controls">
+        <input type="text" ng-model="email" id="email" name="email" placeholder="" class="input-xlarge">
+        <p class="" id="email_warning" style="width:204px;
+          position:absolute;
+         padding:3px;"></p>
+        <p class="help-block">Please provide your E-mail</p>
+      </div>
+    </div>
+
+    <div class="control-group">
+          <b>Enter your date of birth in DD MM YYYY</b>
+              <br>   
+                <form id="myForm" >
+                <input ng-model="birth_day" size="3" tabindex="1" maxlength="2" >
+                <input ng-model="birth_month" size="2" tabindex="2" maxlength="2">
+                <input ng-model="birth_year" size="3" tabindex="3" maxlength="4">
+                </form>
+                <b>{{birth_day}}.{{birth_month}}.{{birth_year}}</b>
+    </div>
+
+
+    <div class="control-group">
+    <b>about yourself</b><br>
+    <textarea name="" id="" cols="50" rows="5" ng-model="about" ></textarea>
+    </div>
+
+
+
+
+ 
+    <div class="control-group">
+      <!-- Password-->
+      <label class="control-label" for="password">Password</label>
+      <div class="controls">
+        <input type="password" ng-model="password" id="password" name="password" placeholder="" class="input-xlarge">
+        <p class="" id="password_warning" style="width:204px;
+         position:absolute;
+         padding:3px;"></p>
+        <p class="help-block">Password should be at least 4 characters</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Password -->
+      <label class="control-label"  for="password_confirm">Password (Confirm)</label>
+      <div class="controls">
+        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+        <p class="" id="confirm_warning" style="width:204px;
+         position:absolute; padding:3px;"></p>
+        <p class="help-block">Please confirm password</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button class="btn btn-success" ng-click="register_user();">Register</button>
+      </div>
+    </div>
+
+  </div>
+      <h1 ng-model="resp_status">{{resp_status}}</h1>
+  </fieldset>
+  
+
+
+
+
+  <script>
+  $(document).ready(function(){
+
+
+
+
+
+
+
+
+    $("button").attr('disabled',true);
+    $("input").change(function(){
+
+ var ev = $("p#password_warning").text() == "okay" && 
+          $("p#confirm_warning").text() == "okay" &&  
+          $("p#email_warning").text() == "okay" && 
+          $("p#username_warning").text() == "okay" &&
+          $("p#username_warning2").text() == "okay";
+
+
+            if (!ev){  
+                            $("button").attr('disabled',true); 
+                   }
+                      else{ 
+                             $("button").attr('disabled',false);
+                           }
+      
+    });
+
+    $("input#password_confirm").keyup(function(){
+
+        var val1 =  $("input#password_confirm").val();
+        var val2 = $("input#password").val();
+        
+        if(val1 == val2 ){
+              $("p#confirm_warning").empty()
+                                    .removeClass("alert alert-warning")
+                                    .addClass("alert alert-success")
+                                    .append("okay");
+
+        } 
+
+            else {
+
+
+              $("p#confirm_warning")
+              .empty() 
+              .removeClass("alert alert-success")
+              .addClass("alert alert-warning")
+              .append(" incorrect");  
+                
+            }
+    });
+
+    $("input#password").keyup(function(){
+      if(this.value.length <8){
+          $("p#password_warning").empty()
+                                  .removeClass("alert alert-success")
+                      .addClass("alert alert-warning")
+                      .append(" this password is too short");      
+                                  
+      }
+          else{
+            $("p#password_warning").empty()
+                                    .removeClass("alert alert-warning")
+                                    .addClass("alert alert-success")
+                                    .append("okay"); 
+          }
+    
+    });
+
+
+    $("input#email").keyup(function(){
+    
+    var ck_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+     if (ck_email.test(this.value)){
+        
+              $("p#email_warning").empty()
+                                    .removeClass("alert alert-warning")
+                                    .addClass("alert alert-success")
+                                    .append("okay");      
+                                  } 
+      else {
+            $("p#email_warning").empty()
+                      .removeClass("alert alert-success")
+                      .addClass("alert alert-warning")
+                      .append("incorrect mail");
+
+           }
+
+  });
+
+
+
+    $("input#username").keyup(function(){
+         
+        var pattern = /^[A-Za-z0-9]{3,20}$/;
+        var pattern2 =  /[0-9]/i;
+        var str =  this.value;
+
+         
+         if (pattern.test(str)){
+
+         
+
+              if (pattern2.test(str[0])){
+                       $("p#username_warning").empty()
+                      .removeClass("alert alert-success")
+                      .addClass("alert alert-warning")
+                      .append("the name must begin with the character");
+                                       }
+
+                              else {
+                                    $("p#username_warning").empty()
+                                    .removeClass("alert alert-warning")
+                                    .addClass("alert alert-success")
+                                    .append("okay");  
+                                    }
+
+
+         } else {
+
+            $("p#username_warning").empty()
+              .removeClass("alert alert-success")
+              .addClass("alert alert-warning")
+              .append("you can not use  any special symbols in your username and the username must consist of  at least 4 symbols ");
+              
+         }
+       
+    });
+
+
+  $("input#username2").keyup(function(){
+         
+        var pattern = /^[A-Za-z\s]{3,20}$/;
+        var str =  this.value;
+         if (pattern.test(str)){
+
+                                    $("p#username_warning2").empty()
+                                    .removeClass("alert alert-warning")
+                                    .addClass("alert alert-success")
+                                    .append("okay");  
+                                    }
+
+
+          else {
+
+            $("p#username_warning2").empty()
+              .removeClass("alert alert-success")
+              .addClass("alert alert-warning")
+              .append("you can not use  any special symbols in your username and the username must consist of  at least 4 symbols ");
+              
+         }
+       
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+  });
+
+</script>

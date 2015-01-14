@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app="scotchApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+	  <!-- SPELLS -->
+	  <!-- load angular and angular route via CDN -->
+	  <script src="angular.js"></script>
+      <script src="angular-route.js"></script>
+	  <script src="script.js"></script>
+	  <script src="angular-animate.js" ></script>
+	<script>
+	
+
+
+
+
+		$(document).ready(function(){
+								if(window.sessionStorage.login == "" ){
+$("#nname").empty().append("hello quest ").append(
+	'<a href="#/login"><span class="glyphicon glyphicon-log-in" >LogIn</span></a>'
+	);
+
+									}
+									else
+									$("#nname").empty().append("hello " + window.sessionStorage.login+" ").append(
+						'<a href="#/login"><span class="glyphicon glyphicon-log-out">LogOut</span></a>'
+										);
+
+		$('.glyphicon-log-out').bind('click',function(){
+					window.sessionStorage.login = "";
+					$("#nname").empty().append('hello quest ').append(
+	'<a href="#/login"><span class="glyphicon glyphicon-log-in" >LogIn</span></a>'
+	);;	
+		});
+
+
+
+	
+		
+  	
+  	
+
+
+		});
+
+
+
+
+	
+	</script>
+
+<style>
+	.ng-enter{
+		transition: 1.00s;
+		opacity: 0;
+	}
+	.ng-enter-active{
+		opacity: 1;
+		transition: 1.00s;
+	}
+	.ng-leave{
+		transition: 0.00s;
+		opacity: 1;
+
+
+	}
+	.ng-leave-active{
+		opacity: 0;
+		transition: 1.00s;
+	}
+
+#scrolldown{
+	font-size: 28px;
+	cursor: pointer;
+	padding: 10px;
+}
+#scrolldown:hover{
+	color:white;
+	transition:0.5s;
+	background-color: rgba(0,0,0,0.7);
+	border-radius:10px;
+	text-shadow: 4px 4px 30px rgba(255, 255, 255, 1);
+}
+
+.scroll_bar:hover,#up:hover{
+	
+	transition:0.5s;
+	color: rgba(0,0,0,0.7);
+	border-radius:10px;
+	text-shadow: 4px 4px 30px rgba(0, 0, 0, 0.7);
+}
+.scroll_bar{
+position: fixed;
+top:650px;
+font-size: 100px;
+left:40px;
+cursor: pointer;
+padding: 10px;
+color: rgba(0,0,0,0.1);
+}
+
+#up{
+position: fixed;
+top:50px;
+font-size: 100px;
+left:40px;
+cursor: pointer;
+padding: 10px;
+color: rgba(0,0,0,0.1);
+}
+
+
+.navbar-right{
+	font-size: 24px;
+}
+
+
+.search_{
+width:300px;
+height: 40px;
+font-size: 30px;
+padding:20px;
+border-radius: 10px;
+outline: none;
+
+color: black;
+}
+
+
+
+
+body{
+
+}
+/*
+.article{
+ border:3px solid rgba(0,0,0,0.5);
+ margin-top:50px;
+ padding: 20px;
+ border-radius: 5px;
+}
+*/
+
+
+body{padding-top:30px;}
+
+.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+
+small {
+display: block;
+line-height: 1.428571429;
+color: #999;
+}
+
+
+</style>
+
+
+
+</head>
+<body  >
+	
+
+
+<header >
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">поставте нам 5 </a>
+				</div>
+				
+				<div ng-controller="mainController" class="navbar-header">
+					<p class="navbar-brand" id="nname"  >
+					 		hello {{quest}}
+					 
+
+					<!--
+					 <script> 
+					 document.write(window.sessionStorage.login);
+					 </script>
+					-->
+					</p>
+				</div>
+				
+
+
+				
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+					<li><a href="#reg"><i class="glyphicon glyphicon-registration-mark"></i>Registration</a></li>
+								
+					<li><a href="#users"><i class="glyphicon glyphicon-user"></i>Users</a></li>
+					<li><a href="#about"><i class="glyphicon glyphicon-pencil"></i> About</a></li>
+					<li><a href="#contact"><i class="glyphicon glyphicon-align-center"></i> Contact</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+
+
+
+
+<div id="main">
+	 
+			<!-- angular templating -->
+			<!-- this is where content will be injected -->
+
+
+	<div ng-view>
+		
+
+	</div>
+
+		</div>
+
+
+
+
+
+</body>
+</html>
